@@ -1,0 +1,23 @@
+{%extends 'blogs/base.html'%}
+{%block myblogsactive%} active {%endblock myblogsactive%}
+{%block content%}
+<div class="row text-center m-0">
+<h1 class="col-12" style="padding: 0%;">Blogs you have written:</h1>
+<a class="btn btn-dark col-12 mb-2" href="{%url 'blogs:new_post'%}">New Blog Post</a>
+{%for blog in blog_entries%}
+<div class="col-md-12 mb-2" style="background: mistyrose;">
+        <h3 class="mb-0">
+          <a class="text-dark" href="{%url 'blogs:post' blog.id%}">{{blog.title|title}}</a>
+        </h3>
+        <h5 style="color: palevioletred;">By <a href="{%url 'users:profile' blog.owner.id%}" style="color: palevioletred;">{{blog.owner.username}}</a></h5>
+        <div class="mb-1 text-muted">{{blog.date_n_time}}</div>
+        <p class="card-text mb-auto font-weight-bold" style="font-size: larger;font-family: cursive;">{{blog.text|truncatewords:20}}</p>
+        <div class="row">
+            <a href="{%url 'blogs:post' blog.id%}" class="col-md-4 btn btn-dark border">Continue reading</a>
+        <a class="btn btn-dark col-md-4 border" href="{%url 'blogs:edit_post' blog.id%}">Edit Blog Post</a>
+        <a class="btn btn-dark col-md-4 border" href="{%url 'blogs:delete_post' blog.id%}">Delete Blog Post</a>
+        </div>
+        </div>
+{%endfor%}
+</div>
+{%endblock content%}
